@@ -1,7 +1,7 @@
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dot-social-dark.svg">
-    <img src="docs/assets/dot-social-light.svg" width="240" alt="Dot logo">
+    <img src="docs/assets/dot-social-light.svg" width="360" alt="Dot logo">
   </picture>
 
   <p>
