@@ -1,4 +1,4 @@
-#ifndef  SOURCE_H
+#ifndef SOURCE_H
 #define SOURCE_H
 
 #include <stdlib.h>
@@ -10,8 +10,8 @@
  * does not include the terminating null byte.
  */
 typedef struct {
-    char *data;     /* Source file contents */
-    size_t size;    /* Size in bytes */
+    char   *data;   /* Source file contents */
+    size_t  size;   /* Size in bytes */
 } SourceFile;
 
 /*
