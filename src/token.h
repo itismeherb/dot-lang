@@ -9,6 +9,7 @@
 typedef enum {
     TOKEN_EOF,
     TOKEN_IDENTIFIER,
+    TOKEN_UNKNOWN,
     TOKEN_NUMBER,
     TOKEN_KW_INT,
 } TokenType;

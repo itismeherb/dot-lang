@@ -1,5 +1,1 @@
-test
-reading
-from
-a
-file
+int a := 5;
