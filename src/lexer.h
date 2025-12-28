@@ -3,6 +3,8 @@
 
 #include "source.h"
 #include "token.h"
+#include "ctype.h"
+#include "string.h"
 
 /*
  * Maintains the state required to tokenize a source file.

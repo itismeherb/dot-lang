@@ -1,5 +1,4 @@
 #include "lexer.h"
-#include "string.h"
 
 void lexer_init(Lexer *lexer, const SourceFile *source) {
     lexer->source   = source;
@@ -13,6 +12,13 @@ static char peek(Lexer *lexer) {
         return '\0';
     }
     return lexer->source->data[lexer->position];
+}
+
+static char peek_next(Lexer *lexer) {
+    if (lexer->position + 1 >= lexer->source->size) {
+        return '\0';
+    }
+    return lexer->source->data[lexer->position + 1];
 }
 
 static char advance(Lexer *lexer) {
@@ -68,7 +74,7 @@ Token lexer_next(Lexer *lexer) {
 
     if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
         advance(lexer);
-        while (1) {
+        for(;;) {
             c = peek(lexer);
             if ((c >= 'a' && c <= 'z') ||
                 (c >= 'A' && c <= 'Z') ||
@@ -88,6 +94,27 @@ Token lexer_next(Lexer *lexer) {
         }
 
         return make_token(lexer, type, start, length, line, col);
+    }
+
+    if (c == '.' && (peek_next(lexer) >= '0' && peek_next(lexer) <= '9')) {
+        int seen_dot = 1;
+
+        advance(lexer); // consume '.'
+
+        while (1) {
+            c = peek(lexer);
+
+            if (c >= '0' && c <= '9') {
+                advance(lexer);
+            } else if (c == '_') {
+                advance(lexer);
+            } else {
+                break;
+            }
+        }
+
+        size_t length = lexer->position - start;
+        return make_token(lexer, TOKEN_NUMBER, start, length, line, col);
     }
 
     advance(lexer);
