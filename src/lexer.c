@@ -47,7 +47,6 @@ static Token make_token(
 }
 
 Token lexer_next(Lexer *lexer) {
-    // Skip whitespace
     for (;;) {
         char c = peek(lexer);
         if (c == ' ' || c == '\t' || c == '\r' || c == '\n') {
@@ -84,7 +83,6 @@ Token lexer_next(Lexer *lexer) {
         size_t length = lexer->position - start;
         TokenType type = TOKEN_IDENTIFIER;
 
-        // Optional: recognize 'int' keyword
         if (length == 3 && strncmp(lexer->source->data + start, "int", 3) == 0) {
             type = TOKEN_KW_INT;
         }
@@ -92,7 +90,6 @@ Token lexer_next(Lexer *lexer) {
         return make_token(lexer, type, start, length, line, col);
     }
 
-    // Unknown character
     advance(lexer);
     return make_token(lexer, TOKEN_UNKNOWN, start, 1, line, col);
 }
